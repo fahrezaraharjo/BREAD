@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<head>
+
+    <title>Learn BREAD</title>
+    <link href="/stylesheets/bootstrap.min.css"  rel="stylesheet" href="style.css" type="text/css">
+    
+</head>
+  
+</div>
+<h1>BREAD</h1>
+<h2>Filters</h2>
+
+    <div class="card">
+        <form action="" method="get">
+            
+
+            <form action="/add" method="post"></form>
+    <div class="card-body">
+        <div class="row">
+            <label for="id" class="col-sm-2 col-form-label">ID</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="id" name="id">
+            </input>
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="string" class="col-sm-2 col-form-label">String</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="string" name="string">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="integer" class="col-sm-2 col-form-label">Integer</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="integer" name="integer">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="float" class="col-sm-2 col-form-label">Float</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="float" name="float">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="date" class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="date" name="date">
+            </div>
+        </div>
+
+        <div class="row">
+            <label for="boolean" class="col-sm-2 col-form-label">Boolean</label>
+            <select class="label-select" aria-label="Disabled select example" class="form-label" id="boolean" name="boolean">
+                <option selected>--Choose the boolean--</option>
+                <option value="true">true</option>
+                <option value="false">false</option>
+            </select>
+        </div>
+    </div>
+    <div class="card-header" style="color: rgb(2, 111, 212);">
+        <h2>Search</h2>
+    </div>
+            <div class="card-body" >
+                <div class="row">
+                    <label for="task" class="col-sm-2"><h2>Kata kunci</h2></label>
+                    <div class="col-sm-10">
+                        <input type="text" class="form-control" id="task" name="task" value="<%= query.task %>" />
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="complete" class="col-sm-2"><h2>Complete</h2></label>
+                    <div class="col-sm-10">
+                        <select class="form-control" id="complete" name="complete">
+                            <option value="">--Pilih Status--</option>
+                            <option value="true"<%= query.complete == "true" ? 
+                            " selected" : ""%>>Yes</option>
+                            <option value="false"<%= query.complete == "false" ? 
+                            " selected" : ""%>>No</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <table class="table table-striped">
+            <thead<div class="card-footer">
+                <button type="submit" class="btn btn-success">Cari</button>
+                <a href="/" class="btn btn-warning">Reset</a>
+                </div>
+        </form>
+            <tr>
+                <th>ID</th>
+                <th>String</th>
+                <th>Integer</th>
+                <th>Float</th>
+                <th>Date</th>
+                <th>Boolean</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+                <% data.forEach((item, index)=> { %>
+                    <tr>
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+                        <td>
+                            <%= item.string %>
+                        </td>
+                        <td>
+                            <%= item.integer %>
+                        </td>
+                        <td>
+                            <%= item.float %>
+                        </td>
+                        <td>
+                            <%= item.date %>
+                        </td>
+                        <td>
+                            <%= item.bolean ? 'Yes' : 'No' %>
+                        </td>
+                        <td>
+                            <a href="/edit/<%= index%>" class="btn btn-success">Edit</a>
+                            <a href="/delete/<%= index%>" class="btn btn-danger">Delete</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+    </table>
+    <nav aria-label="Page navigation example">
+        <ul class="pagination">
+            <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>
+            <% for(let i=1; i<=pages; i++){ %>
+                <li class="page-item <%= i  == page ? 'active' : '' %>"><a class="page-link" href="/?page=<%= i %>">
+                        <%= i %>
+                    </a></li>
+                <% } %>
+                    <li class="page-item">
+                        <a class="page-link" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+        </ul>
+    </nav>
+    <a href="/add" class="btn-primary">Tambah</a>
+</body>
+
+</html>
