@@ -3,7 +3,7 @@ var router = express.Router();
 var path = require('path');
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(path.join(__dirname, '..', '..', 'BREAD', 'db', 'todo.db'));
-
+const { render } = require('express/lib/response');
 
 
 
@@ -19,7 +19,7 @@ router.get('/',function (req, res,) {
     params.push(`id like '%${req.query.id}%'`)
   }
   if (req.query.complete) {
-    params.push(`complete = ${req.query.string}`)
+    params.push(`bolean = ${req.query.bolean}`)
   }
 
 
@@ -51,9 +51,16 @@ router.get('/add', function (req, res) {
 })
 
 router.post('/add', function (req, res) {
-  let task = req.body.task
+  let string = req.body.string
+  let integer = parseInt(req.body.integer)
+  let float = parseFloat(req.body.float)
+  let date = req.body.date
+  let bolean = req.body.bolean
+  
+
+
   //Quary Binding
-  db.run('insert into todo(task) values (?)', [task], (err) => {
+  db.run('insert into todo(string, integer, float, date, bolean) values (?,?,?,?,?)', [string, integer, float, date, bolean], (err) => {
     if (err) return res.send(err)
     res.redirect('/')
   })
@@ -77,12 +84,18 @@ router.get('/edit/:id', function (req, res) {
 
 router.post('/edit/:id', function (req, res) {
   const id = Number(req.params.id)
-  const task = req.body.task
-  const complete = JSON.parse(req.body.complete)
-  db.run('update todo set task = ?, complete = ? where id = ?', [task, complete, id], (err, row) => {
+  const string = req.body.string
+  const integer = req.body.integer
+  const float = req.body.float
+  const date = req.body.date
+  const bolean = req.body.bolean
+  console.log(req)
+  
+  db.run('update todo set string = ?, integer = ?, float = ?, date = ?, bolean = ? where id = ?', [string, integer, float, date, bolean, id], (err, row) => {
     if (err) return res.send(err)
+    
     res.redirect('/')
-  })
+  });
   });
 
 
